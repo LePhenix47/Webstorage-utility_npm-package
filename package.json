@@ -1,0 +1,25 @@
+{
+  "name": "@lephenix47/webstorage-utility",
+  "version": "1.0.0",
+  "description": " Utility class service to manage the web storage including the local and the session storage",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publish": "npm publish --access=public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LePhenix47/Webstorage-utility_npm-package.git"
+  },
+  "keywords": [
+    "webstorage",
+    "sessionStorage",
+    "localStorage"
+  ],
+  "author": "Younes Lahouiti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LePhenix47/Webstorage-utility_npm-package/issues"
+  },
+  "homepage": "https://github.com/LePhenix47/Webstorage-utility_npm-package#readme"
+}
