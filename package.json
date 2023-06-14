@@ -1,15 +1,13 @@
 {
   "name": "@lephenix47/webstorage-utility",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": " Utility class service to manage the web storage including the local and the session storage",
-  "main": "index.js",
+  "main": "lib/es6/index.js",
+  "types": "lib/es6/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "ts-cmd": "rmdir /s /q  lib && tsc && tsc --build tsconfig.es5.json",
+    "ts-bash": "rm -rf ./ lib && tsc && tsc --build tsconfig.es5.json",
     "publish": "npm publish --access=public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LePhenix47/Webstorage-utility_npm-package.git"
   },
   "keywords": [
     "webstorage",
@@ -18,8 +16,19 @@
   ],
   "author": "Younes Lahouiti",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LePhenix47/Webstorage-utility_npm-package.git"
+  },
+  "files": [
+    "lib/**/*"
+  ],
   "bugs": {
     "url": "https://github.com/LePhenix47/Webstorage-utility_npm-package/issues"
   },
-  "homepage": "https://github.com/LePhenix47/Webstorage-utility_npm-package#readme"
+  "homepage": "https://github.com/LePhenix47/Webstorage-utility_npm-package#readme",
+  "devDependencies": {
+    "ts-loader": "^9.4.3",
+    "typescript": "^5.1.3"
+  }
 }
