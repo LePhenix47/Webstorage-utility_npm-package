@@ -2,11 +2,11 @@
   "name": "@lephenix47/webstorage-utility",
   "version": "1.1.0",
   "description": " Utility class service to manage the web storage including the local and the session storage",
-  "main": "lib/es6/index.js",
-  "types": "lib/es6/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "ts-cmd": "rmdir /s /q  lib && tsc && tsc --build tsconfig.es5.json",
-    "ts-bash": "rm -rf ./ lib && tsc && tsc --build tsconfig.es5.json",
+    "ts-cmd": "rmdir /s /q lib && tsc && tsc --build",
+    "ts-bash": "rm -rf ./lib && tsc && tsc --build",
     "publish": "npm publish --access=public"
   },
   "keywords": [
