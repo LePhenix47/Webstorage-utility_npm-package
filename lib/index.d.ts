@@ -1,1 +1,2 @@
-export { WebStorageService } from "./classes/web-storage-service.class";
+import WebStorage from "./classes/web-storage-service.class";
+export { WebStorage };

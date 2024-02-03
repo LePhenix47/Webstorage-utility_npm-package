@@ -10,7 +10,7 @@
  * @static
  * @public
  */
-export declare class WebStorageService {
+declare class WebStorage {
     /**
      * Stores a key-value pair in the WebStorage.
      *
@@ -27,7 +27,7 @@ export declare class WebStorageService {
      * @param {boolean} [inSession=false] - A flag indicating whether to look for the value in the session storage or not.
      * @returns {any} The value retrieved from the storage, or null if the key is not found.
      */
-    static getKey(key: string, inSession?: boolean): any;
+    static getKey<T>(key: string, inSession?: boolean): T;
     /**
      * Deletes a settled key-value pair in either the WebStorage.
      *
@@ -56,6 +56,34 @@ export declare class WebStorageService {
      * @param {number} index - The index of the key to retrieve.
      * @param {boolean} [inSession=false] - A flag indicating whether to get the key from the session storage or not.
      * @returns {(string | null)} The key at the
-     * */
-    static getKeyByIndex(index: number, inSession?: boolean): string | null;
+     */
+    static getKeyNameByIndex(index: number, inSession?: boolean): string | null;
+    /**
+     * Replacer function used as a callback for the `JSON.parse` method to customize the serialization of certain types of objects,
+     * specifically for the Maps and Sets
+     *
+     * @param key - The key of the object being serialized.
+     * @param value - The value of the object being serialized.
+     * @returns The serialized representation of the value object with customized serialization for Map and Set objects.
+     * @see {@link https://www.youtube.com/watch?v=hubQQ3F337A Steve's video on Maps & Sets}
+     */
+    static replacer(key: string, value: any): any;
+    /**
+     * Replacer function used as a callback for the `JSON.parse` method to customize the serialization of certain types of objects,
+     * specifically for the Maps and Sets
+     *
+     * @param key - The key of the object being serialized.
+     * @param value - The value of the object being serialized.
+     * @returns The serialized representation of the value object with customized serialization for Map and Set objects.
+     * @see {@link https://www.youtube.com/watch?v=hubQQ3F337A Steve's video on Maps & Sets}
+     */
+    static reviver(key: string, value: any): any;
+    /**
+     * Verifies whether a given JSON string can be parsed.
+     *
+     * @param value - The JSON string to evaluate.
+     * @returns {boolean} True if parsing succeeds, otherwise False.
+     */
+    private static isParseable;
 }
+export default WebStorage;

@@ -10,7 +10,7 @@
  * @static
  * @public
  */
-export class WebStorageService {
+class WebStorage {
   /**
    * Stores a key-value pair in the WebStorage.
    *
@@ -20,11 +20,11 @@ export class WebStorageService {
    * @returns {void}
    */
   static setKey(key: string, value: any, inSession: boolean = false): void {
-    const strinfigiedValue: string = JSON.stringify(value);
+    const stringifiedValue: string = JSON.stringify(value);
 
     // If the user stored the pair inside the session storage
     const storage: Storage = inSession ? sessionStorage : localStorage;
-    storage.setItem(key, strinfigiedValue);
+    storage.setItem(key, stringifiedValue);
   }
 
   /**
@@ -34,16 +34,16 @@ export class WebStorageService {
    * @param {boolean} [inSession=false] - A flag indicating whether to look for the value in the session storage or not.
    * @returns {any} The value retrieved from the storage, or null if the key is not found.
    */
-  static getKey(key: string, inSession: boolean = false): any {
+  static getKey<T>(key: string, inSession: boolean = false): T {
     // If the user stored the pair inside the session storage
     const storage: Storage = inSession ? sessionStorage : localStorage;
     const item: string = storage.getItem(key);
 
-    if (item) {
-      return JSON.parse(item);
+    if (!item) {
+      return null;
     }
 
-    return null;
+    return this.isParseable(item) ? (JSON.parse(item) as T) : (item as T);
   }
 
   /**
@@ -93,8 +93,8 @@ export class WebStorageService {
    * @param {number} index - The index of the key to retrieve.
    * @param {boolean} [inSession=false] - A flag indicating whether to get the key from the session storage or not.
    * @returns {(string | null)} The key at the
-   * */
-  static getKeyByIndex(
+   */
+  static getKeyNameByIndex(
     index: number,
     inSession: boolean = false
   ): string | null {
@@ -102,4 +102,64 @@ export class WebStorageService {
     const storage: Storage = inSession ? sessionStorage : localStorage;
     return storage.key(index);
   }
+
+  /**
+   * Replacer function used as a callback for the `JSON.parse` method to customize the serialization of certain types of objects,
+   * specifically for the Maps and Sets
+   *
+   * @param key - The key of the object being serialized.
+   * @param value - The value of the object being serialized.
+   * @returns The serialized representation of the value object with customized serialization for Map and Set objects.
+   * @see {@link https://www.youtube.com/watch?v=hubQQ3F337A Steve's video on Maps & Sets}
+   */
+  static replacer(key: string, value: any): any {
+    if (value instanceof Map) {
+      return { __type: "Map", value: Object.fromEntries(value) };
+    }
+    if (value instanceof Set) {
+      return { __type: "Set", value: Array.from(value) };
+    }
+    return value;
+  }
+
+  /**
+   * Replacer function used as a callback for the `JSON.parse` method to customize the serialization of certain types of objects,
+   * specifically for the Maps and Sets
+   *
+   * @param key - The key of the object being serialized.
+   * @param value - The value of the object being serialized.
+   * @returns The serialized representation of the value object with customized serialization for Map and Set objects.
+   * @see {@link https://www.youtube.com/watch?v=hubQQ3F337A Steve's video on Maps & Sets}
+   */
+  static reviver(key: string, value: any): any {
+    switch (value?.__type) {
+      case "Set": {
+        return new Set(value?.value);
+      }
+      case "Map": {
+        return new Map(value?.value);
+      }
+
+      default:
+        return value;
+    }
+  }
+
+  /**
+   * Verifies whether a given JSON string can be parsed.
+   *
+   * @param value - The JSON string to evaluate.
+   * @returns {boolean} True if parsing succeeds, otherwise False.
+   */
+  private static isParseable(value: any): boolean {
+    try {
+      JSON.parse(value);
+
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 }
+
+export default WebStorage;
