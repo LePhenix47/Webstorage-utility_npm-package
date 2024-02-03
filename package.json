@@ -7,7 +7,8 @@
   "scripts": {
     "ts-cmd": "rmdir /s /q lib && tsc && tsc --build",
     "ts-bash": "rm -rf ./lib && tsc && tsc --build",
-    "publish": "npm publish --access=public"
+    "publish": "npm publish --access=public",
+    "git:push": "git push && npm run publish"
   },
   "keywords": [
     "webstorage",
